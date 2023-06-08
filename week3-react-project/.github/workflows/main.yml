@@ -1,0 +1,45 @@
+# Actions 이름 - github 페이지에서 볼 수 있다.
+name: Card Game
+
+# main 브랜치에 push가 되면 해당 workflow가 수행된다.
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    # 해당 동작(build)를 돌릴 OS
+    runs-on: macos-latest
+    steps:
+      # 실제 main branch에 push하면 동작할 내용들
+
+      # 해당 환경을 Node.js 위에서 실행하겠다고 명시
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ secrets.NODE_VERSION }}
+
+      # checkout 하기
+      - name: checkout frontend
+        uses: actions/checkout@v2
+        with:
+          repository: ssso-pro1/tennis-together-fe
+          path: ./frontend
+
+      # 모듈 변화가 있을 때만 yarn install
+      - name: Cache node modules
+        uses: actions/cache@v2
+        id: cache_dependencies
+        with:
+          path: node_modules
+          # 실행 context에서 가져온 package-lock.json 파일을 해싱해서 키로 저장
+          # 만약 key가 그대로면 캐싱된 파일을 찾아서 사용하고,
+          # key가 바뀌었다면 변경사항이 있다고 판단해 다시 install
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install
+
+      - run: yarn build
+        if: ${{ always() }}
