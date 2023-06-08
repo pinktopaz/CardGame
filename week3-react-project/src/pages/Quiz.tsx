@@ -61,7 +61,7 @@ const Quiz = () => {
 
   useEffect(() => {
     if (chosen.length === 2) {
-      setIsChecking((prev) => !prev);
+      setIsChecking(true);
       setTimeout(() => {
         handleCheckPair(chosen);
         setIsChecking((prev) => !prev);
@@ -82,7 +82,7 @@ const Quiz = () => {
   }, [currentScore]);
 
   const handleClick = (idx: number) => {
-    if (chosen.length < 2 && !isChecking) {
+    if (chosen.length < 2 && !isChecking && !isCardsFlipped[idx]) {
       setChosen((prev) => [...prev, idx]);
     }
   };

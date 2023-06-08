@@ -11,7 +11,7 @@ export interface QuizCardProps {
 }
 
 const QuizCard = (props: QuizCardProps) => {
-  const { quizImgSrc, handleClick, order,isTwoCardsOpen } = props;
+  const { quizImgSrc, handleClick, order, isTwoCardsOpen } = props;
   const [isOpen, setIsOpen] = useState(false);
   const { isCardsFlipped, setIsCardsFlipped } = useContext(CardContext);
 
@@ -19,7 +19,7 @@ const QuizCard = (props: QuizCardProps) => {
     handleClick?.();
 
     if (isTwoCardsOpen) return;
-    
+
     if (!isCardsFlipped[order]) {
       const tempIsCardFlipped = [...isCardsFlipped];
       tempIsCardFlipped[order] = !tempIsCardFlipped[order];
