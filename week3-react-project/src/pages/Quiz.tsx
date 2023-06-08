@@ -158,7 +158,7 @@ const StHeader = styled.header<{ isBlinking: boolean }>`
   margin-bottom: 2rem;
 
   font-size: 4rem;
-  background-color: skyblue;
+  background-color: orange;
 
   @keyframes blink-effect {
     50% {

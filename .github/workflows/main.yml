@@ -29,7 +29,7 @@ jobs:
         # 공통적으로 사용하는 절차를 재사용할 수 있게 해준다.
         uses: actions/checkout@v3
 
-      # 모듈 변화가 있을 때만 yarn install
+      # 모듈 변화가 있을 때만 yarn install - 약 30초 정도 차이 나더라!
       - name: Cache node modules
         uses: actions/cache@v3
         id: cache
