@@ -19,9 +19,6 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Change directory to week3-react-project
-        run: cd week3-react-project
-
       # checkout 하기
       - name: checkout
         uses: actions/checkout@v3
@@ -31,15 +28,17 @@ jobs:
         uses: actions/cache@v3
         id: cache_dependencies
         with:
-          path: ./node_modules
+          path: ./week3-react-project/node_modules
           # 실행 context에서 가져온 package-lock.json 파일을 해싱해서 키로 저장
           # 만약 key가 그대로면 캐싱된 파일을 찾아서 사용하고,
           # key가 바뀌었다면 변경사항이 있다고 판단해 다시 install
-          key: ${{ runner.os }}-node-${{ hashFiles('./package.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('./week3-react-project/package.json') }}
 
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
+        working-directory: ./week3-react-project
         run: yarn install
 
       - run: yarn build
+        working-directory: ./week3-react-project
         if: ${{ always() }}
