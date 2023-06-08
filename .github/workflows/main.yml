@@ -15,17 +15,17 @@ jobs:
 
       # 해당 환경을 Node.js 위에서 실행하겠다고 명시
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: "16"
 
       # checkout 하기
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # 모듈 변화가 있을 때만 yarn install
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache_dependencies
         with:
           path: node_modules
